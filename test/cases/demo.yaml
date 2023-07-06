@@ -1,0 +1,27 @@
+-
+  name: demo1
+  request:
+    url: "${baseUrl}/get"
+    method: GET
+    params:
+      foo1: bar1
+      foo2: bar2
+-
+  name: demo2
+  request:
+    url: "${baseUrl}/post"
+    method: POST
+    json:
+      foo1: bar1
+      foo2: bar2
+-
+  name: demo3
+  request:
+    url: "${baseUrl}/post"
+    method: POST
+    data:
+      foo1: bar1
+      foo2: bar2
+
+
+
