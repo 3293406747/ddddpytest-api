@@ -1,10 +1,11 @@
 from common.case import render_case
-from common.decorator import write_log
+from common.decorator import write_log, write_allure
 from common.session import sess
 from common.variables import globalVariables, environmentVariables
 
 
 @write_log
+@write_allure
 def send_request(
 		method,
 		url,
