@@ -1,5 +1,6 @@
 import requests
 
+
 class SessionManager:
 
 	def __init__(self):
@@ -49,3 +50,6 @@ class SessionManager:
 	def __setitem__(self, index: int, value: requests.Session) -> None:
 		""" 修改session池中的session """
 		self.__sessPool[index] = value
+
+
+sess = SessionManager()

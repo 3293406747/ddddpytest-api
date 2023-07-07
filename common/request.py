@@ -1,10 +1,10 @@
 from common.case import render_case
-from common.session import SessionManager
+from common.decorator import write_log
+from common.session import sess
 from common.variables import globalVariables, environmentVariables
 
-sess = SessionManager()
 
-
+@write_log
 def send_request(
 		method,
 		url,

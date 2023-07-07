@@ -61,8 +61,6 @@ class VerifyNotMustKeys(CaseVerification):
 	ALLOWED_KEYS = ("data_path", "data_sheet", "session_index")
 
 	def verify_case(self, case: dict) -> dict:
-		if case == {}:
-			return case
 		unexpected_keys = set(case) - set(VerifyNotMustKeys.ALLOWED_KEYS)
 		if unexpected_keys:
 			msg = f"用例的一级关键字不能包含以下关键字：{', '.join(unexpected_keys)}"
@@ -79,7 +77,6 @@ class VerifySessionKeys(CaseVerification):
 			msg = f"用例的session关键字下必须整数格式。"
 			raise CaseVerificationError(msg)
 
-		self._next_handler.verify_case(case)
 		return case
 
 

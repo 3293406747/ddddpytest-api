@@ -9,5 +9,4 @@ class TestSubject:
 
 	@pytest.mark.parametrize("parameter",read_case("test.yaml"))
 	def test_request(self,parameter:dict):
-		response = send_request(**parameter["request"])
-		print(response.json())
+		send_request(**parameter)

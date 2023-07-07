@@ -3,8 +3,9 @@ import re
 from string import Template
 
 from pathlib import Path
+import yaml
 
-from common.read import read_yaml
+from common.read import read_yaml, read_excel
 from common.render import RenderTemplate, VariablesRenderStrategy, FunctionRenderStrategy, replace_function
 from common.verify import VerifyMustKeys, VerifyRequestKeys, VerifyNotMustKeys, VerifySessionKeys
 from config import testDir
@@ -22,16 +23,27 @@ def verify_case(case: dict) -> dict:
 
 def read_case(filename, index: int = None, encoding='utf-8') -> list:
 	"""读取用例"""
-	filepath = Path(__file__).parent.parent.joinpath(testDir).joinpath("cases",filename)
+	pool = []
+	filepath = Path(__file__).parent.parent.joinpath(testDir).joinpath("cases", filename)
 	if index is None:
-		data = read_yaml(filepath,encoding=encoding)
+		data = read_yaml(filepath, encoding=encoding)
 	else:
-		data = [read_yaml(filepath,encoding=encoding)[index]]
-	# 用例格式校验
+		data = [read_yaml(filepath, encoding=encoding)[index]]
 	for i in data:
+		# 用例格式校验
 		verify_case(i)
-	return data
-
+		# 合并excel数据
+		data_path = i.pop("data_path", None)
+		if data_path is None:
+			pool.append(i)
+			continue
+		sheet = i.pop("data_sheet", None)
+		case_json = json.dumps(i, ensure_ascii=False)
+		datas = read_excel(Path(__file__).parent.parent.joinpath(testDir, "datas", data_path), sheet)
+		for data in datas:
+			c = yaml.safe_load(Template(case_json).safe_substitute(data))
+			pool.append(c)
+	return pool
 
 
 def render_case(case: dict, variables: dict) -> dict:

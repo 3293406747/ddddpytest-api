@@ -1,5 +1,3 @@
-from dataclasses import dataclass, field, astuple
-
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
@@ -7,22 +5,17 @@ from email.mime.application import MIMEApplication
 from pathlib import Path
 
 
-@dataclass
-class SendEmailConfig:
-	smtp_server: str
-	port: int
-	from_addr: str
-	to_addr: str
-	username: str
-	password: str
-	subject: str
-	text: str
-	filename_list: list[Path] = field(default_factory=list)
-
-
-def send_email(config: SendEmailConfig) -> None:
-	smtp_server, port, from_addr, to_addr, username, password, subject, text, filename_list = astuple(config)
-
+def send_email(
+		smtp_server: str,
+		port: int,
+		from_addr: str,
+		to_addr: str,
+		username: str,
+		password: str,
+		subject: str,
+		text: str,
+		filename_list: list[Path]
+) -> None:
 	# 创建MIMEMultipart对象，用于存储邮件内容
 	msg = MIMEMultipart()
 
