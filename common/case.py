@@ -7,6 +7,7 @@ from pathlib import Path
 from common.read import read_yaml
 from common.render import RenderTemplate, VariablesRenderStrategy, FunctionRenderStrategy, replace_function
 from common.verify import VerifyMustKeys, VerifyRequestKeys, VerifyNotMustKeys, VerifySessionKeys
+from config import testDir
 
 
 def verify_case(case: dict) -> dict:
@@ -21,7 +22,7 @@ def verify_case(case: dict) -> dict:
 
 def read_case(filename, index: int = None, encoding='utf-8') -> list:
 	"""读取用例"""
-	filepath = Path(__file__).parent.parent.joinpath("test").joinpath("cases",filename)
+	filepath = Path(__file__).parent.parent.joinpath(testDir).joinpath("cases",filename)
 	if index is None:
 		data = read_yaml(filepath,encoding=encoding)
 	else:

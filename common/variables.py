@@ -2,6 +2,7 @@ from pathlib import Path
 
 from common.read import read_yaml
 from common.write import write_yaml
+from config import environment
 
 
 class GlobalVariables:
@@ -44,4 +45,4 @@ class EnvironmentVariables:
 		write_yaml(self.filename, self.pool)
 
 globalVariables = GlobalVariables()
-environmentVariables = EnvironmentVariables("test.yaml")
+environmentVariables = EnvironmentVariables(environment)
