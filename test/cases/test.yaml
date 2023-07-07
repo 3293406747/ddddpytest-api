@@ -1,0 +1,19 @@
+-
+  name: demo1
+  request:
+    url: "${baseUrl}/api/getData"
+    method: GET
+    params:
+      foo1: bar1
+      foo2: bar2
+-
+  name: demo2
+  request:
+    url: "${baseUrl}/api/post"
+    method: POST
+    json:
+      foo1: "${foo1}"
+      foo2: bar2
+
+
+

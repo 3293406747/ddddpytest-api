@@ -58,14 +58,15 @@ class VerifyRequestKeys(CaseVerification):
 class VerifyNotMustKeys(CaseVerification):
 	"""非必选参数校验"""
 
-	ALLOWED_KEYS = ("data_path", "data_sheet", "session")
+	ALLOWED_KEYS = ("data_path", "data_sheet", "session_index")
 
 	def verify_case(self, case: dict) -> dict:
+		if case == {}:
+			return case
 		unexpected_keys = set(case) - set(VerifyNotMustKeys.ALLOWED_KEYS)
 		if unexpected_keys:
 			msg = f"用例的一级关键字不能包含以下关键字：{', '.join(unexpected_keys)}"
 			raise CaseVerificationError(msg)
-
 		self._next_handler.verify_case(case)
 		return case
 
@@ -74,7 +75,7 @@ class VerifySessionKeys(CaseVerification):
 	"""session参数校验"""
 
 	def verify_case(self, case: dict) -> dict:
-		if case.get("session") and not isinstance(case.get("session"), int):
+		if case.get("session_index") and not isinstance(case.get("session_index"), int):
 			msg = f"用例的session关键字下必须整数格式。"
 			raise CaseVerificationError(msg)
 
