@@ -2,15 +2,14 @@ import requests
 
 
 class SessionManager:
-
+	"""session管理"""
 	def __init__(self):
 		self.__sessPool: [requests.Session] = []
 		self.__seek = 0
 
 	def create(self) -> None:
 		""" 创建session对象 """
-		sess = requests.session()
-		self.__sessPool.append(sess)
+		self.__sessPool.append(requests.session())
 
 	def __call__(self, seek: None | int = None) -> requests.Session:
 		""" 返回session对象 """

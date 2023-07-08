@@ -6,6 +6,7 @@ import allure
 
 
 def write_log(send_request):
+	"""记录日志装饰器"""
 	def decorator(**kwargs):
 		logger.debug(f"用例名称: {kwargs['name']}")
 		response: Response = send_request(**kwargs['request'])
@@ -19,6 +20,7 @@ def write_log(send_request):
 
 
 def write_allure(send_request):
+	"""记录allure报告装饰器"""
 	def decorator(**kwargs):
 		response: Response = send_request(**kwargs)
 		allure.attach(response.request.url,"url",allure.attachment_type.TEXT)

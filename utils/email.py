@@ -16,6 +16,7 @@ def send_email(
 		text: str,
 		filename_list: list[Path]
 ) -> None:
+	"""发送邮件"""
 	# 创建MIMEMultipart对象，用于存储邮件内容
 	msg = MIMEMultipart()
 

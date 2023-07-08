@@ -6,11 +6,13 @@ app.debug = True
 
 @app.route("/api/getData", methods=["GET"])
 def get_data():
+	"""get请求"""
 	return jsonify({"code": 200, "msg": "success", "data": request.args}), 200
 
 
 @app.route("/api/post", methods=["POST"])
 def post():
+	"""post请求"""
 	request_content_type = request.headers['Content-Type'].split(";")[0].strip()
 	if request_content_type == 'application/json':
 		return jsonify({"code": 200, "msg": "success", "data": request.get_json()}), 200
