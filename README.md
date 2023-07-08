@@ -1,6 +1,6 @@
 # ddddpytest-api
 
-本项目实现接口自动化的技术选型：**python+request+pytest+allure**。request用于发送HTTP协议的请求，pytest作为测试执行器，allure用于生成测试报告。
+本项目实现接口自动化的技术选型：**python+requests+pytest+allure**。requests用于发送HTTP协议的请求，pytest作为测试执行器，allure用于生成测试报告。
 
 ## 特征
 
