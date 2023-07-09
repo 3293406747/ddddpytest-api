@@ -6,3 +6,5 @@ requests~=2.31.0
 loguru~=0.7.0
 Faker~=18.13.0
 PyMySQL~=1.1.0
+pathlib2~=2.3.7.post1
+allure-pytest~=2.13.2

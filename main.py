@@ -29,8 +29,6 @@ msg = r"""
           佛祖保佑             永无BUG
 """
 print(msg)
-
-if __name__ == '__main__':
-	pytest.main()
-	report_path = str(Path(__file__).parent.joinpath(testDir,'reports'))
-	os.system(f'allure generate ./temp -o {report_path} --clean')
+pytest.main()
+report_path = str(Path(__file__).parent.joinpath(testDir,'reports'))
+os.system(f'allure generate ./temp -o {report_path} --clean')
