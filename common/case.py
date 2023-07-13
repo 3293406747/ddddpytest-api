@@ -23,27 +23,28 @@ def verify_case(case: dict) -> dict:
 
 def read_case(filename, index: int = None, encoding='utf-8') -> list:
 	"""读取用例"""
-	pool = []
-	filepath = Path(__file__).parent.parent.joinpath(testDir).joinpath("cases", filename)
+	case_pool = []
+	file_path = Path(__file__).parent.parent.joinpath(testDir,"cases", filename)
 	if index is None:
-		data = read_yaml(filepath, encoding=encoding)
+		all_cases = read_yaml(file_path, encoding=encoding)
 	else:
-		data = [read_yaml(filepath, encoding=encoding)[index]]
-	for i in data:
+		all_cases = [read_yaml(file_path, encoding=encoding)[index]]
+	for case in all_cases:
 		# 用例格式校验
-		verify_case(i)
+		verify_case(case)
 		# 合并excel数据
-		data_path = i.pop("data_path", None)
+		data_path = case.pop("data_path", None)
 		if data_path is None:
-			pool.append(i)
+			case_pool.append(case)
 			continue
-		sheet = i.pop("data_sheet", None)
-		case_json = json.dumps(i, ensure_ascii=False)
-		datas = read_excel(Path(__file__).parent.parent.joinpath(testDir, "datas", data_path), sheet)
-		for data in datas:
-			c = yaml.safe_load(Template(case_json).safe_substitute(data))
-			pool.append(c)
-	return pool
+		sheet = case.pop("data_sheet", None)
+		case_json = json.dumps(case, ensure_ascii=False)
+		excel_data = read_excel(Path(__file__).parent.parent.joinpath(testDir, "datas", data_path), sheet)
+		case_pool += [yaml.safe_load(Template(case_json).safe_substitute(data)) for data in excel_data]
+		# for data in excel_data:
+		# 	case = yaml.safe_load(Template(case_json).safe_substitute(data))
+		# 	case_pool.append(case)
+	return case_pool
 
 
 def render_case(case: dict, variables: dict) -> dict:
